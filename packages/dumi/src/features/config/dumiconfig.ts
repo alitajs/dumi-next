@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { IApi } from 'umi';
 import { getSchemas } from './schema';
 
@@ -9,6 +10,13 @@ export default (api: IApi) => {
       ie: 9,
     },
     hash: true,
+    conventionRoutes: {
+      base: join(api.cwd, 'docs'),
+    },
+    mdx: {
+      loader: require.resolve('./loader'),
+      loaderOptions: {},
+    },
     ...api.userConfig,
   };
 
