@@ -12,6 +12,7 @@ importers:
       '@umijs/utils': 4.0.0-rc.6
       '@vercel/ncc': 0.33.3
       dts-packer: ^0.0.3
+      dumi: workspace:*
       esno: ^0.14.1
       git-repo-info: ^2.1.1
       husky: ^7.0.4
@@ -42,6 +43,7 @@ importers:
       '@umijs/utils': 4.0.0-rc.6
       '@vercel/ncc': 0.33.3
       dts-packer: 0.0.3
+      dumi: link:packages/dumi
       esno: 0.14.1
       git-repo-info: 2.1.1
       husky: 7.0.4
@@ -66,25 +68,33 @@ importers:
 
   examples/boilerplate:
     specifiers:
-      dumi: workspace:*
+      dumi: 2.0.0-beta.1
     dependencies:
       dumi: link:../../packages/dumi
 
   packages/dumi:
     specifiers:
-      '@umijs/bundler-utils': 4.0.0-rc.6
+      '@dumi/plugins': 2.0.0-beta.1
       '@umijs/core': 4.0.0-rc.6
-      '@umijs/renderer-react': 4.0.0-rc.6
       '@umijs/utils': 4.0.0-rc.6
       umi: 4.0.0-rc.6
       v8-compile-cache: ^2.3.0
     dependencies:
-      '@umijs/bundler-utils': 4.0.0-rc.6
+      '@dumi/plugins': link:../plugins
       '@umijs/core': 4.0.0-rc.6
-      '@umijs/renderer-react': 4.0.0-rc.6_react-dom@17.0.2+react@17.0.2
       '@umijs/utils': 4.0.0-rc.6
       umi: 4.0.0-rc.6_react-dom@17.0.2+react@17.0.2
       v8-compile-cache: 2.3.0
+
+  packages/plugins:
+    specifiers:
+      '@umijs/bundler-utils': 4.0.0-rc.6
+      '@umijs/utils': 4.0.0-rc.6
+      react-docgen-typescript-dumi-tmp: ^1.22.1-0
+    dependencies:
+      '@umijs/bundler-utils': 4.0.0-rc.6
+      '@umijs/utils': 4.0.0-rc.6
+      react-docgen-typescript-dumi-tmp: 1.22.1-0_typescript@4.6.2
 
 packages:
 
@@ -8985,6 +8995,14 @@ packages:
     dependencies:
       randombytes: 2.1.0
       safe-buffer: 5.2.1
+    dev: false
+
+  /react-docgen-typescript-dumi-tmp/1.22.1-0_typescript@4.6.2:
+    resolution: {integrity: sha512-wjuAm1yj+ZZucovow2VF0MXkH2SGZ+squZxfNdnam3oyUbHy/xZaU1ZabCn7rY+13ZFx0/NLda+ZuBgF3g8vBA==}
+    peerDependencies:
+      typescript: '>= 3.x'
+    dependencies:
+      typescript: 4.6.2
     dev: false
 
   /react-dom/17.0.2_react@17.0.2:

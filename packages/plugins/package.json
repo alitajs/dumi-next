@@ -1,8 +1,8 @@
 {
-  "name": "dumi",
+  "name": "@dumi/plugins",
   "version": "2.0.0-beta.1",
-  "description": "dumi next develop version",
-  "homepage": "https://github.com/alitajs/dumi-next/tree/master/packages/dumi#readme",
+  "description": "@dumi/plugins",
+  "homepage": "https://github.com/alitajs/dumi-next/tree/master/packages/plugins#readme",
   "bugs": "https://github.com/alitajs/dumi-next/issues",
   "repository": {
     "type": "git",
@@ -11,11 +11,9 @@
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "bin": {
-    "dumi": "bin/dumi.js"
-  },
   "files": [
     "dist",
+    "compiled",
     "templates"
   ],
   "scripts": {
@@ -24,11 +22,9 @@
     "dev": "pnpm build -- --watch"
   },
   "dependencies": {
-    "@dumi/plugins": "2.0.0-beta.1",
-    "@umijs/core": "4.0.0-rc.6",
+    "@umijs/bundler-utils": "4.0.0-rc.6",
     "@umijs/utils": "4.0.0-rc.6",
-    "umi": "4.0.0-rc.6",
-    "v8-compile-cache": "^2.3.0"
+    "react-docgen-typescript-dumi-tmp": "^1.22.1-0"
   },
   "publishConfig": {
     "access": "public"
