@@ -72,15 +72,25 @@ importers:
     dependencies:
       dumi: link:../../packages/dumi
 
+  packages/core:
+    specifiers:
+      react-docgen-typescript-dumi-tmp: ^1.22.1-0
+      umi: 4.0.0-rc.6
+    dependencies:
+      react-docgen-typescript-dumi-tmp: 1.22.1-0_typescript@4.6.2
+      umi: 4.0.0-rc.6_react-dom@17.0.2+react@17.0.2
+
   packages/dumi:
     specifiers:
       '@dumi/plugins': 2.0.0-beta.1
+      '@dumijs/core': 2.0.0-beta.1
       '@umijs/core': 4.0.0-rc.6
       '@umijs/utils': 4.0.0-rc.6
       umi: 4.0.0-rc.6
       v8-compile-cache: ^2.3.0
     dependencies:
       '@dumi/plugins': link:../plugins
+      '@dumijs/core': link:../core
       '@umijs/core': 4.0.0-rc.6
       '@umijs/utils': 4.0.0-rc.6
       umi: 4.0.0-rc.6_react-dom@17.0.2+react@17.0.2
@@ -88,13 +98,13 @@ importers:
 
   packages/plugins:
     specifiers:
+      '@dumijs/core': 2.0.0-beta.1
       '@umijs/bundler-utils': 4.0.0-rc.6
       '@umijs/utils': 4.0.0-rc.6
-      react-docgen-typescript-dumi-tmp: ^1.22.1-0
     dependencies:
+      '@dumijs/core': link:../core
       '@umijs/bundler-utils': 4.0.0-rc.6
       '@umijs/utils': 4.0.0-rc.6
-      react-docgen-typescript-dumi-tmp: 1.22.1-0_typescript@4.6.2
 
 packages:
 

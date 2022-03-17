@@ -1,8 +1,8 @@
-import type { DumiApi } from 'dumi';
 import type {
   PropFilter,
   StaticPropFilter,
 } from 'react-docgen-typescript-dumi-tmp/lib/parser';
+import type { DumiApi } from './types';
 
 export interface IMenuItem {
   path?: string;
