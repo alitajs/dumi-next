@@ -22,9 +22,9 @@
     "dev": "pnpm build -- --watch"
   },
   "dependencies": {
+    "@dumijs/core": "2.0.0-beta.1",
     "@umijs/bundler-utils": "4.0.0-rc.6",
-    "@umijs/utils": "4.0.0-rc.6",
-    "react-docgen-typescript-dumi-tmp": "^1.22.1-0"
+    "@umijs/utils": "4.0.0-rc.6"
   },
   "publishConfig": {
     "access": "public"

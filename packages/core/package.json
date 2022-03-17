@@ -1,8 +1,8 @@
 {
-  "name": "dumi",
+  "name": "@dumijs/core",
   "version": "2.0.0-beta.1",
-  "description": "dumi next develop version",
-  "homepage": "https://github.com/alitajs/dumi-next/tree/master/packages/dumi#readme",
+  "description": "@dumijs/core",
+  "homepage": "https://github.com/alitajs/dumi-next/tree/master/packages/core#readme",
   "bugs": "https://github.com/alitajs/dumi-next/issues",
   "repository": {
     "type": "git",
@@ -11,12 +11,8 @@
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "bin": {
-    "dumi": "bin/dumi.js"
-  },
   "files": [
-    "dist",
-    "templates"
+    "dist"
   ],
   "scripts": {
     "build": "pnpm tsc",
@@ -24,17 +20,13 @@
     "dev": "pnpm build -- --watch"
   },
   "dependencies": {
-    "@dumi/plugins": "2.0.0-beta.1",
-    "@dumijs/core": "2.0.0-beta.1",
-    "@umijs/core": "4.0.0-rc.6",
-    "@umijs/utils": "4.0.0-rc.6",
-    "umi": "4.0.0-rc.6",
-    "v8-compile-cache": "^2.3.0"
+    "react-docgen-typescript-dumi-tmp": "^1.22.1-0",
+    "umi": "4.0.0-rc.6"
   },
   "publishConfig": {
     "access": "public"
   },
   "authors": [
-    "chenxiaocong <xiaohuoni@gmail.com> (https://github.com/xiaohuoni)"
+    "xiaohuoni <xiaohuoni@gmail.com> (https://github.com/xiaohuoni)"
   ]
 }

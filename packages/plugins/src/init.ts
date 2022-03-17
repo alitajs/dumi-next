@@ -1,6 +1,6 @@
+import type { DumiApi } from '@dumijs/core';
+import { init, setOptions } from '@dumijs/core';
 import { logger } from '@umijs/utils';
-import { DumiApi } from 'dumi';
-import { init, setOptions } from './context';
 
 const UMI_LIKE_PKGS = ['umi', '@alipay/bigfish'];
 

@@ -1,6 +1,6 @@
-import type { IApi } from 'umi';
+import type { DumiApi } from '@dumijs/core';
 
-export default (api: IApi) => {
+export default (api: DumiApi) => {
   api.onStart(() => {
     console.log('Hello dumi-next');
   });
