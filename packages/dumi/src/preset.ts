@@ -7,6 +7,8 @@ export default (api: DumiApi) => {
   const plugins = [
     require.resolve('./features/config/dumiconfig'),
     require.resolve('@dumi/plugins/dist/init'),
+    require.resolve('@dumi/plugins/dist/theme'),
+    require.resolve('@dumi/plugins/dist/md'),
   ];
   return {
     plugins,

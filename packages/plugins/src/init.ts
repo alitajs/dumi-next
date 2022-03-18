@@ -1,5 +1,5 @@
 import type { DumiApi } from '@dumijs/core';
-import { init, setOptions } from '@dumijs/core';
+import { init } from '@dumijs/core';
 import { logger } from '@umijs/utils';
 
 const UMI_LIKE_PKGS = ['umi', '@alipay/bigfish'];
@@ -8,9 +8,6 @@ const UMI_LIKE_PKGS = ['umi', '@alipay/bigfish'];
  * dumi prepare plugin
  */
 export default (api: DumiApi) => {
-  api.onStart(() => {
-    logger.info('Using Init Plugin');
-  });
   const deps = Object.assign({}, api.pkg.dependencies, api.pkg.devDependencies);
   // enable ingetrate mode if dumi was registered as a umi preset on a umi like project
   const isIntegrateUmi =
@@ -18,17 +15,19 @@ export default (api: DumiApi) => {
     deps['@dumi/plugins'] &&
     // also can force disable integrate mode by umi build --dumi
     api.args?.dumi === undefined;
-
-  // init context & share umi api with other source module
-  init(api, { isIntegrate: isIntegrateUmi } as any);
+  api.onStart(() => {
+    logger.info('Using Init Plugin');
+    // init context & share umi api with other source module
+    init(api, { isIntegrate: isIntegrateUmi } as any);
+  });
 
   // use modifyConfig api for update context
   // because both of the umi service init & user config changed will trigger this plugin key
-  api.modifyConfig((memo) => {
-    // share config with other source module via context
-    setOptions('title', api.pkg.name || 'dumi');
-    return memo;
-  });
+  // api.modifyConfig((memo) => {
+  //   // share config with other source module via context
+  //   setOptions('title', api.pkg.name || 'dumi');
+  //   return memo;
+  // });
 
   // re-enable @ & @@ umi default alias for integrated mode
   if (isIntegrateUmi || api.args?.dumi) {

@@ -121,7 +121,12 @@ export interface IDumiOpts {
   // exportStatic?: IConfig['exportStatic'];
 }
 
-const context: { umi?: DumiApi; opts?: IDumiOpts } = {};
+const context: { umi?: DumiApi; opts?: IDumiOpts } = (global as any)
+  .context ?? { opts: {} };
+
+if (!(global as any).context) {
+  (global as any).context = context;
+}
 
 /**
  * initialize context
@@ -130,7 +135,8 @@ const context: { umi?: DumiApi; opts?: IDumiOpts } = {};
  */
 export function init(umi: DumiApi, opts: IDumiOpts) {
   context.umi = umi;
-  context.opts = opts;
+  // TODO: umi plugin 加载顺序？？ init 不是第一个进这里的
+  context.opts = { ...context.opts, ...opts };
 }
 
 /**
