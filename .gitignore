@@ -14,6 +14,8 @@ node_modules
 /examples/*/node_modules
 /packages/*/node_modules
 /packages/*/dist
+/packages/*/es
+/packages/*/lib
 /packages/*/tsconfig.tsbuildinfo
 /packages/*/src/**/fixtures/*/dist
 /packages/*/src/**/fixtures/*/.umi

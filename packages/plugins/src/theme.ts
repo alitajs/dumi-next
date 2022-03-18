@@ -1,11 +1,13 @@
 import type { DumiApi } from '@dumijs/core';
 import { setOptions } from '@dumijs/core';
-import { logger, winPath } from '@umijs/utils';
+import { logger } from '@umijs/utils';
 import fs from 'fs';
-import path, { dirname } from 'path';
+import { dirname, join } from 'path';
 import { minify } from 'terser';
 import getTheme from './utils/loader/theme/loader';
 import { resolveProjectDep } from './utils/resolveProjectDep';
+
+const DIR_NAME = 'dumi';
 
 // initialize data-prefers-color attr for HTML tag
 const COLOR_HEAD_SCP = `
@@ -24,7 +26,7 @@ const COLOR_HEAD_SCP = `
 `;
 
 /**
- * plugin for alias dumi/theme module for export theme API
+ * plugin for alias @dumijs/theme module for export theme API
  */
 export default (api: DumiApi) => {
   api.onStart(() => {
@@ -44,17 +46,21 @@ export default (api: DumiApi) => {
   // share config with other source module via context
   api.modifyConfig((memo) => {
     setOptions('theme', memo.themeConfig);
-    const pkgPath =
-      resolveProjectDep({
-        pkg: api.pkg,
-        cwd: api.cwd,
-        dep: 'dumi-theme-default',
-      }) || dirname(require.resolve('dumi-theme-default/package.json'));
+    const getPkgPath = (pkg: string) => {
+      return (
+        resolveProjectDep({
+          pkg: api.pkg,
+          cwd: api.cwd,
+          dep: pkg,
+        }) || dirname(require.resolve(`${pkg}/package.json`))
+      );
+    };
+
     // set alias for builtin default theme
-    memo.alias['dumi-theme-default'] = pkgPath;
+    memo.alias['dumi-theme-default'] = getPkgPath('dumi-theme-default');
 
     // set alias for dumi theme api
-    memo.alias['dumi/theme'] = path.join(__dirname, './utils/theme');
+    memo.alias['@dumijs/theme'] = getPkgPath('@dumijs/theme');
     return memo;
   });
 
@@ -77,17 +83,48 @@ export default (api: DumiApi) => {
   ]);
 
   // write outer layout to tmp dir
-  api.onGenerateFiles(() => {
+  api.onGenerateFiles(async () => {
+    const theme = await getTheme();
     api.writeTmpFile({
-      path: 'dumi/layout.tsx',
+      path: join(DIR_NAME, 'layout.tsx'),
+      noPluginDir: true,
       content: `import React from 'react';
-import config from '@@/dumi/config';
-import demos from '@@/dumi/demos';
-import apis from '@@/dumi/apis';
-import Layout from '${winPath(path.join(__dirname, './utils/theme/layout'))}';
+  
+// import config from '@@/dumi/config';
+// import demos from '@@/dumi/demos';
+// import apis from '@@/dumi/apis';
+import Layout from '@dumijs/theme/dist/layout';
+import ThemeLayout from '${theme.layoutPaths._}';
+import { useAppData, useLocation, Link,Outlet } from 'dumi';
+// export default (props) => <Layout {...props} config={config} demos={demos} apis={apis} />;
 
-export default (props) => <Layout {...props} config={config} demos={demos} apis={apis} />;
+export default () => {
+  const location = useLocation();
+  const config = {};
+  const demos =[]
+  const apis=[]
+  return (
+    <Layout location={location} config={config} demos={demos} apis={apis}>
+     <ThemeLayout>
+      <Outlet/>
+      </ThemeLayout>
+    </Layout>
+  );
+};
 `,
     });
   });
+
+  // api.addLayouts(() => {
+  //   return [
+  //     {
+  //       id: 'dumi-layout',
+  //       file: withTmpPath({
+  //         api,
+  //         noPluginDir: true,
+  //         path: join(DIR_NAME, 'layout.tsx'),
+  //       }),
+  //     },
+  //   ];
+  // });
 };

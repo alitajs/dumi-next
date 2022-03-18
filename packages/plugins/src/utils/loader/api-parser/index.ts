@@ -1,6 +1,9 @@
-import type { IDumiOpts, IStaticPropFilter } from '@dumijs/core';
+import type {
+  IApiDefinition,
+  IDumiOpts,
+  IStaticPropFilter,
+} from '@dumijs/core';
 import { context as ctx } from '@dumijs/core';
-import type { AtomPropsDefinition } from 'dumi-assets-types';
 import * as parser from 'react-docgen-typescript-dumi-tmp';
 import { buildFilter as getBuiltinFilter } from 'react-docgen-typescript-dumi-tmp/lib/buildFilter';
 import type {
@@ -21,8 +24,6 @@ const DEFAULT_EXPORTS = [
   'StatelessComponent',
   'ForwardRefExoticComponent',
 ];
-
-export type IApiDefinition = AtomPropsDefinition;
 
 /**
  * implement skipNodeModules filter option

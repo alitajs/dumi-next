@@ -1,7 +1,13 @@
-import type { IDumiOpts, ILocale, IMenu, INav, IRoute } from '@dumijs/core';
+import type {
+  IApiDefinition,
+  IDumiOpts,
+  ILocale,
+  IMenu,
+  INav,
+  IRoute,
+} from '@dumijs/core';
 import React from 'react';
 import type { IPreviewerComponentProps } from '.';
-import type { IApiDefinition } from '../loader/api-parser';
 
 export interface IThemeContext {
   /**
