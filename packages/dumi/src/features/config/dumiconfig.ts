@@ -9,13 +9,10 @@ export default (api: IApi) => {
     targets: {
       ie: 9,
     },
+    mfsu: false,
     hash: true,
     conventionRoutes: {
       base: join(api.cwd, 'docs'),
-    },
-    mdx: {
-      loader: require.resolve('./loader'),
-      loaderOptions: {},
     },
     ...api.userConfig,
   };
