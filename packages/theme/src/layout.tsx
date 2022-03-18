@@ -144,7 +144,7 @@ const useCurrentBase = (
 };
 
 const findDumiRoot = (routes: any): IThemeContext['routes'] => {
-  return routes.find((item) => {
+  return routes?.find((item) => {
     if (item.__dumiRoot) {
       return true;
     }
@@ -164,10 +164,10 @@ const OuterLayout: React.FC<IOuterLayoutProps & IRouteComponentProps> = (
   const { location, route, children, config, apis, demos } = props;
   const pathWithoutPrefix = location.pathname.replace(
     // to avoid stripped the first /
-    route.path.replace(/^\/$/, '//'),
+    route?.path?.replace(/^\/$/, '//'),
     '',
   );
-  const routes = findDumiRoot(props.routes) || [];
+  const routes = findDumiRoot(props?.routes) || [];
   const meta = useCurrentRouteMeta(routes, location.pathname);
   // use non-prefix for detect current locale, such as /~docs/en-US -> /en-US
   const locale = useCurrentLocale(config.locales, pathWithoutPrefix);

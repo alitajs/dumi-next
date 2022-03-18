@@ -1,6 +1,5 @@
-import { join } from 'path';
+import getTheme from './theme/loader';
 import transformer from './transformer';
-// import getTheme from './theme/loader';
 import {
   getFileContentByRegExp,
   getFileRangeLines,
@@ -24,18 +23,20 @@ export default async function loader(raw: string) {
     throwError: true,
     masterKey: params.get('master') as string | undefined,
   });
-  // const theme = await getTheme();
-  // ${theme?.builtins
-  //   .concat(theme.fallbacks)
-  //   .concat(theme.customs)
-  //   .map(component => `import ${component.identifier} from '${component.source}';`)
-  //   .join('\n')}
+  const theme = await getTheme();
+
   return `
     import React from 'react';
     import { dynamic } from 'dumi';
-    import { Link, AnchorLink, context } from '${join(__dirname, '../theme')}';
-   
-// TODO: theme?.builtins
+    import { Link, AnchorLink, context } from '@dumijs/theme';
+    ${theme?.builtins
+      .concat(theme.fallbacks)
+      .concat(theme.customs)
+      .map(
+        (component) =>
+          `import ${component.identifier} from '${component.source}';`,
+      )
+      .join('\n')}
     // memo for page content, to avoid useless re-render since other context fields changed
     const PageContent = React.memo(({ demos: DUMI_ALL_DEMOS }) => {
       ${(result.meta.demos || [])

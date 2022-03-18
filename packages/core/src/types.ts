@@ -1,3 +1,4 @@
+import type { AtomPropsDefinition } from 'dumi-assets-types';
 import { FunctionComponent } from 'react';
 import { IApi } from 'umi';
 
@@ -156,3 +157,5 @@ export interface ILocale {
   name: string;
   label: string;
 }
+
+export type IApiDefinition = AtomPropsDefinition;

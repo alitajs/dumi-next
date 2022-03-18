@@ -1,8 +1,8 @@
 {
-  "name": "@dumijs/core",
+  "name": "@dumijs/theme",
   "version": "2.0.0-beta.1",
-  "description": "@dumijs/core",
-  "homepage": "https://github.com/alitajs/dumi-next/tree/master/packages/core#readme",
+  "description": "@dumijs/theme",
+  "homepage": "https://github.com/alitajs/dumi-next/tree/master/packages/theme#readme",
   "bugs": "https://github.com/alitajs/dumi-next/issues",
   "repository": {
     "type": "git",
@@ -20,9 +20,11 @@
     "dev": "pnpm build -- --watch"
   },
   "dependencies": {
-    "dumi-assets-types": "1.0.0",
-    "react-docgen-typescript-dumi-tmp": "^1.22.1-0",
-    "umi": "4.0.0-rc.6"
+    "@dumijs/core": "2.0.0-beta.1",
+    "copy-text-to-clipboard": "^2.2.0",
+    "lodash.throttle": "^4.1.1",
+    "lz-string": "^1.4.4",
+    "react-router-dom": "^6.2.2"
   },
   "publishConfig": {
     "access": "public"

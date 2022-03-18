@@ -50,7 +50,7 @@ function getApiData(
  * use api data by identifier
  * @note  identifier is component name or component path
  */
-export default (identifier: string) => {
+export default (identifier: string): any => {
   const {
     locale,
     config: { locales },
