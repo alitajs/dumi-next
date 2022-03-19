@@ -1,5 +1,9 @@
 import type { AtomPropsDefinition } from 'dumi-assets-types';
 import { FunctionComponent } from 'react';
+import type {
+  PropFilter,
+  StaticPropFilter,
+} from 'react-docgen-typescript-dumi-tmp/lib/parser';
 import { IApi } from 'umi';
 
 export type DumiApi = IApi & {};
@@ -152,10 +156,227 @@ export interface INavItem {
 }
 
 export type INav = Record<string, INavItem[]>;
-
 export interface ILocale {
   name: string;
   label: string;
 }
 
 export type IApiDefinition = AtomPropsDefinition;
+
+export interface IMenuItem {
+  path?: string;
+  title: string;
+  meta?: Record<string, any>;
+  children?: IMenuItem[];
+}
+
+export interface IStaticPropFilter extends StaticPropFilter {
+  /**
+   * skip props which parsed from node_modules
+   */
+  skipNodeModules?: boolean;
+}
+export interface IDumiOpts {
+  /**
+   * site title
+   * @default   package name
+   */
+  title: string;
+  /**
+   * site logo
+   * @default   Umi logo
+   */
+  logo?: string | boolean;
+  /**
+   * render mode
+   * @default   doc
+   * @refer     https://d.umijs.org/guide/mode
+   */
+  mode: 'doc' | 'site';
+  /**
+   * site description
+   * @note  only available in site mode
+   */
+  description?: string;
+  /**
+   * site languages
+   * @default  [['en-US', 'EN'], ['zh-CN', '中文']]
+   */
+  locales: [string, string][];
+  /**
+   * resolve config
+   */
+  resolve: {
+    /**
+     * which code block language will be rendered as React component
+     * @default   ['jsx', 'tsx']
+     */
+    previewLangs: string[];
+    /**
+     * configure the markdown directory for dumi searching
+     * @default   ['docs', 'src'] or ['docs', 'packages/pkg/src']
+     */
+    includes: string[];
+    /**
+     * configure the markdown directory for dumi exclude
+     * @note  like gitignore spec, http://git-scm.com/docs/gitignore
+     */
+    excludes: string[];
+    /**
+     * TBD
+     */
+    examples: string[];
+    /**
+     * Should we treat previewLangs codeblock as demo component
+     */
+    passivePreview: boolean;
+  };
+  /**
+   * customize the side menu
+   * @note  only available in site mode
+   */
+  menus?: Record<string, IMenuItem[]>;
+  /**
+   * customize the navigations
+   * @note  only available in site mode
+   */
+  navs?: INav | INavItem[];
+  /**
+   * enable algolia searching
+   */
+  algolia?: {
+    appId?: string;
+    apiKey: string;
+    indexName: string;
+    debug?: boolean;
+  };
+  /**
+   * is integrate mode
+   * @note  if enter interate mode, doc site will append in /~docs route in development
+   */
+  isIntegrate: boolean;
+  /**
+   * theme config
+   */
+  theme: Record<string, any>;
+  /**
+   * apiParser config
+   */
+  apiParser: {
+    propFilter?: IStaticPropFilter | PropFilter;
+  };
+  /**
+   * configure how html is output
+   */
+  // exportStatic?: IConfig['exportStatic'];
+}
+
+export interface IThemeContext {
+  /**
+   * documentation config
+   */
+  config: {
+    /**
+     * mode type
+     */
+    mode: 'doc' | 'site';
+    /**
+     * site title
+     */
+    title: IDumiOpts['title'];
+    /**
+     * site description
+     */
+    description?: IDumiOpts['description'];
+    /**
+     * documentation repository URL
+     */
+    repository: {
+      url?: string;
+      branch: string;
+      platform?: string;
+    };
+    /**
+     * logo image URL
+     */
+    logo?: IDumiOpts['logo'];
+    /**
+     * navigation configurations
+     */
+    navs: INav;
+    /**
+     * sidemenu configurations
+     */
+    menus: IMenu;
+    /**
+     * locale configurations
+     */
+    locales: ILocale[];
+    /**
+     * algolia configurations
+     */
+    algolia?: IDumiOpts['algolia'];
+    /**
+     * theme config
+     */
+    theme: IDumiOpts['theme'];
+    /**
+     * configure how html is output
+     */
+    // TODO: UMI4 exportStatic
+    // exportStatic?: IConfig['exportStatic'];
+  };
+  /**
+   * the meta information of current route
+   */
+  meta: {
+    /**
+     * page title
+     */
+    title: string;
+    /**
+     * control sidemenu display
+     */
+    sidemenu?: boolean;
+    /**
+     * control toc position in page
+     */
+    toc?: false | 'content' | 'menu';
+    // TODO: https://d.umijs.org/config/frontmatter#markdown-%E6%94%AF%E6%8C%81%E7%9A%84-frontmatter-%E9%85%8D%E7%BD%AE%E9%A1%B9
+    [key: string]: any;
+  };
+  /**
+   * current locale
+   */
+  locale?: string;
+  /**
+   * current menu
+   */
+  menu: IMenu['locale']['path'];
+  /**
+   * current nav
+   */
+  nav: INav['locale'];
+  /**
+   * base path
+   */
+  base: string;
+  /**
+   * documentation routes
+   */
+  routes: (IRoute & { meta: any })[];
+  /**
+   * all demos data
+   */
+  demos: Record<
+    string,
+    {
+      component: React.ComponentType;
+      previewerProps: IPreviewerComponentProps;
+    }
+  >;
+  /**
+   * all parsed api data
+   */
+  apis: Record<string, IApiDefinition>;
+}

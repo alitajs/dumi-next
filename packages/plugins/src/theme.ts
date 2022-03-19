@@ -4,10 +4,9 @@ import { logger } from '@umijs/utils';
 import fs from 'fs';
 import { dirname, join } from 'path';
 import { minify } from 'terser';
+import { DEFAULT_FRAMEWORK_NAME } from './constants';
 import getTheme from './utils/loader/theme/loader';
 import { resolveProjectDep } from './utils/resolveProjectDep';
-
-const DIR_NAME = 'dumi';
 
 // initialize data-prefers-color attr for HTML tag
 const COLOR_HEAD_SCP = `
@@ -86,7 +85,7 @@ export default (api: DumiApi) => {
   api.onGenerateFiles(async () => {
     const theme = await getTheme();
     api.writeTmpFile({
-      path: join(DIR_NAME, 'layout.tsx'),
+      path: join(DEFAULT_FRAMEWORK_NAME, 'layout.tsx'),
       noPluginDir: true,
       content: `import React from 'react';
   
@@ -122,7 +121,7 @@ export default () => {
   //       file: withTmpPath({
   //         api,
   //         noPluginDir: true,
-  //         path: join(DIR_NAME, 'layout.tsx'),
+  //         path: join(DEFAULT_FRAMEWORK_NAME, 'layout.tsx'),
   //       }),
   //     },
   //   ];

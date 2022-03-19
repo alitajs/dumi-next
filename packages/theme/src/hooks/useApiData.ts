@@ -1,5 +1,5 @@
+import type { IThemeContext } from '@dumijs/core';
 import { useContext, useEffect, useState } from 'react';
-import type { IThemeContext } from '../context';
 import context from '../context';
 
 /**
