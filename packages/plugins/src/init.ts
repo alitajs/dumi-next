@@ -1,5 +1,4 @@
-import type { DumiApi } from '@dumijs/core';
-import { init } from '@dumijs/core';
+import { context, DumiApi, init } from '@dumijs/core';
 import { logger } from '@umijs/utils';
 
 const UMI_LIKE_PKGS = ['umi', '@alipay/bigfish'];
@@ -38,4 +37,8 @@ export default (api: DumiApi) => {
       return memo;
     });
   }
+
+  api.onBeforeCompiler(() => {
+    console.log(context);
+  });
 };

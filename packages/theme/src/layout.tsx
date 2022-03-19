@@ -1,6 +1,10 @@
-import type { IMenu, IRoute, IRouteComponentProps } from '@dumijs/core';
+import type {
+  IMenu,
+  IRoute,
+  IRouteComponentProps,
+  IThemeContext,
+} from '@dumijs/core';
 import React, { useLayoutEffect, useState } from 'react';
-import type { IThemeContext } from './context';
 import Context from './context';
 
 export interface IOuterLayoutProps {
